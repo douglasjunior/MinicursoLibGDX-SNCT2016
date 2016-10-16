@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -7,8 +7,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
+import com.minicurso.libgdx.gdxgame.util.Util;
 
-import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.util.Util.PIXEL_METRO;
 
 /**
  * Created by Douglas on 14/05/2016.

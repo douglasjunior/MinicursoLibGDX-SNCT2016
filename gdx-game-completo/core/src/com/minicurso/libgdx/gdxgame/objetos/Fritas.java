@@ -1,19 +1,19 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
-
-import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
+import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 /**
- * Classe que representa o Espinho
+ * Classe que representa o Fritas
+ * <p>
  * Created by Douglas on 14/05/2016.
  */
-public class Espinho extends Obstaculo {
+public class Fritas extends Obstaculo {
 
-
-    public Espinho(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+    public Fritas(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
 
@@ -33,8 +33,8 @@ public class Espinho extends Obstaculo {
      * @return
      */
     @Override
-    protected float getLarguraTextura() {
-        return 60;
+    public float getLarguraTextura() {
+        return 67;
     }
 
     /**
@@ -43,18 +43,8 @@ public class Espinho extends Obstaculo {
      * @return
      */
     @Override
-    protected float getAlturaTextura() {
-        return 60;
-    }
-
-    /**
-     * Retorna a altura do corpo físico em metros
-     *
-     * @return
-     */
-    @Override
-    protected float getAlturaCorpo() {
-        return 40 / PIXEL_METRO;
+    public float getAlturaTextura() {
+        return 90;
     }
 
     /**
@@ -64,7 +54,16 @@ public class Espinho extends Obstaculo {
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txEspinho;
+        return recursos.txFritas;
     }
 
+    /**
+     * Retorna a pontuação do obstáculo
+     *
+     * @return
+     */
+    @Override
+    public int getPontuacao() {
+        return 0;
+    }
 }

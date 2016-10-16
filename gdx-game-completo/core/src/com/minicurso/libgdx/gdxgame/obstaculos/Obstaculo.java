@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.obstaculos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
+import com.minicurso.libgdx.gdxgame.util.Util;
 
-import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.util.Util.PIXEL_METRO;
 
 /**
  * Classe genérica que define os obstáculos.
@@ -71,14 +73,14 @@ public abstract class Obstaculo {
      *
      * @return
      */
-    protected abstract float getLarguraTextura();
+    public abstract float getLarguraTextura();
 
     /**
      * Retorna a altura da textura
      *
      * @return
      */
-    protected abstract float getAlturaTextura();
+    public abstract float getAlturaTextura();
 
     /**
      * Retorna a largura do corpo físico em metros
@@ -115,6 +117,13 @@ public abstract class Obstaculo {
     }
 
     /**
+     * Retorna a pontuação do obstáculo
+     *
+     * @return
+     */
+    public abstract int getPontuacao();
+
+    /**
      * Atualiza os atributos do sprite
      */
     private void atualizarSprite() {
@@ -127,7 +136,7 @@ public abstract class Obstaculo {
         float diferencaY = getAlturaTextura() / 2 - (getAlturaCorpo() * PIXEL_METRO) / 2;
         sprite.setPosition(corpo.getPosition().x * PIXEL_METRO - getLarguraTextura() / 2,
                 corpo.getPosition().y * PIXEL_METRO - getAlturaTextura() / 2 + diferencaY);
-        // atualiza o ângulo do eprsonagem de acordo com o ângulo do corpo
+        // atualiza o ângulo do personagem de acordo com o ângulo do corpo
         sprite.setOriginCenter();
         sprite.setRotation((float) Math.toDegrees(corpo.getAngle()));
     }

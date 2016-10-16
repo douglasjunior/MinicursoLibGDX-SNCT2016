@@ -1,23 +1,25 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 /**
- * Classe que representa a Serra
+ * Classe que representa a Donut
  * Created by Douglas on 14/05/2016.
  */
-public class Serra extends Obstaculo {
+public class Donut extends Obstaculo {
 
-    public Serra(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+    public Donut(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
 
     /**
-     * Cria a forma do corpo físico da Serra
+     * Cria a forma do corpo físico do Donut
      *
      * @return
      */
@@ -36,8 +38,8 @@ public class Serra extends Obstaculo {
      */
     @Override
     protected void atualizar(float delta) {
-        // incrementa o ângulo da serra para fazer o efeito de rotação
-        float angulo = getCorpo().getAngle() - delta * 10;
+        // incrementa o ângulo do donut para fazer o efeito de rotação
+        float angulo = getCorpo().getAngle() - delta * 5;
         getCorpo().setTransform(getCorpo().getPosition(), angulo);
         // chama o método atualizar genérico da classe Obstaculo
         super.atualizar(delta);
@@ -59,7 +61,7 @@ public class Serra extends Obstaculo {
      * @return
      */
     @Override
-    protected float getLarguraTextura() {
+    public float getLarguraTextura() {
         return 80;
     }
 
@@ -69,7 +71,7 @@ public class Serra extends Obstaculo {
      * @return
      */
     @Override
-    protected float getAlturaTextura() {
+    public float getAlturaTextura() {
         return 80;
     }
 
@@ -80,7 +82,16 @@ public class Serra extends Obstaculo {
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txSerra;
+        return recursos.txDonut;
     }
 
+    /**
+     * Retorna a pontuação do obstáculo
+     *
+     * @return
+     */
+    @Override
+    public int getPontuacao() {
+        return 0;
+    }
 }

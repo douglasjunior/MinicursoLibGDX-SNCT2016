@@ -1,16 +1,18 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 /**
- * Classe que representa o Barril
- * Created by Douglas on 14/05/2016.
+ * Created by Douglas on 16/10/2016.
  */
-public class Barril extends Obstaculo {
 
-    public Barril(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+public class Lanche extends Obstaculo {
+
+    public Lanche(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
 
@@ -30,8 +32,8 @@ public class Barril extends Obstaculo {
      * @return
      */
     @Override
-    protected float getLarguraTextura() {
-        return 67;
+    public float getLarguraTextura() {
+        return 90;
     }
 
     /**
@@ -40,8 +42,8 @@ public class Barril extends Obstaculo {
      * @return
      */
     @Override
-    protected float getAlturaTextura() {
-        return 90;
+    public float getAlturaTextura() {
+        return 70;
     }
 
     /**
@@ -51,6 +53,17 @@ public class Barril extends Obstaculo {
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txBarril;
+        return recursos.txLanche;
     }
+
+    /**
+     * Retorna a pontuação do obstáculo
+     *
+     * @return
+     */
+    @Override
+    public int getPontuacao() {
+        return 0;
+    }
+
 }

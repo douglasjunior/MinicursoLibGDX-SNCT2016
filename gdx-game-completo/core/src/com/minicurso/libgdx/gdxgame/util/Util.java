@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -75,7 +75,7 @@ public class Util {
     /**
      * Verifica se houve colisão entre A e B, e vice-versa.
      *
-     * @param contato
+     * @param contato Representa uma colisão dentro do mundo físico Box2D
      * @param a
      * @param b
      * @return

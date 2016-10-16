@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.telas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,10 +11,20 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.minicurso.libgdx.gdxgame.MainGame;
+import com.minicurso.libgdx.gdxgame.objetos.Chao;
+import com.minicurso.libgdx.gdxgame.objetos.Explosao;
+import com.minicurso.libgdx.gdxgame.objetos.Personagem;
+import com.minicurso.libgdx.gdxgame.objetos.Tiro;
+import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
+import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculos;
+import com.minicurso.libgdx.gdxgame.util.EventoColisao;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
+import com.minicurso.libgdx.gdxgame.util.Util;
 
 import java.util.Iterator;
 
-import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.util.Util.PIXEL_METRO;
 
 /**
  * Tela que representa o cenário do jogo.
@@ -29,7 +39,6 @@ public class TelaJogo implements Screen {
 
     // objeto que define o comportamento da câmera do jogo
     private OrthographicCamera camera;
-
     // objeto que representa o mundo fíciso do jogo, com força da gravidade e colisão
     private World mundo;
     private Personagem personagem;
@@ -39,7 +48,8 @@ public class TelaJogo implements Screen {
     private Array<Explosao> explosoes = new Array<Explosao>();
 
     private boolean reiniciarJogo = false;
-    private float pontuacao = 0;
+    private int pontuacao = 0;
+    private int vidas = 3;
     private BitmapFont fonte;
 
     // objeto que imprime o contorno dos corpos na tela (utilizado para debug)
@@ -182,15 +192,30 @@ public class TelaJogo implements Screen {
     /**
      * Identifica qual a colisão que ocorreu no mundo físico
      *
-     * @param contact
+     * @param contato
      */
-    private void detectouColisao(Contact contact) {
-        if (Util.colidiu(contact, Tiro.class, Obstaculo.class)) {
-            colisaoTiroObstaculo(contact);
-        } else if (Util.colidiu(contact, Personagem.class, Obstaculo.class)) {
-            // quando o personagem colidir com qualquer obstáculo o jogo termina
-            gameOver();
+    private void detectouColisao(Contact contato) {
+        if (Util.colidiu(contato, Tiro.class, Obstaculo.class)) {
+            colisaoTiroObstaculo(contato);
+        } else if (Util.colidiu(contato, Personagem.class, Obstaculo.class)) {
+            colisaoPersonagemObstaculo(contato);
         }
+    }
+
+    private void colisaoPersonagemObstaculo(Contact contato) {
+        Obstaculo obstaculo;
+        if (contato.getFixtureA().getUserData() instanceof Obstaculo) {
+            obstaculo = (Obstaculo) contato.getFixtureA().getUserData();
+        } else {
+            obstaculo = (Obstaculo) contato.getFixtureB().getUserData();
+        }
+        // se a pontuação do obstáculo é zero, então decrementa a vida
+        if (obstaculo.getPontuacao() == 0)
+            vidas--;
+        else
+            pontuacao += obstaculo.getPontuacao();
+        // marca o obstáculo para ser destruído
+        obstaculo.setDestruir(true);
     }
 
     /**
@@ -222,25 +247,21 @@ public class TelaJogo implements Screen {
         }
 
         // marca o tiro para ser destruido
+        criarExplosao(obstaculo);
         tiro.setDestruir(true);
-
-        // verifica se o tiro se colidiu com o barril
-        if (obstaculo instanceof Barril) {
-            criarExplosao((Barril) obstaculo);
-            obstaculo.setDestruir(true);
-        }
+        obstaculo.setDestruir(true);
     }
 
     /**
      * Cria o efeito de explosão
      *
-     * @param barril
+     * @param obstaculo
      */
-    private void criarExplosao(Barril barril) {
+    private void criarExplosao(Obstaculo obstaculo) {
         // define a posição da explosão
         Vector2 posicao = new Vector2();
-        posicao.x = barril.getCorpo().getPosition().x * PIXEL_METRO - barril.getLarguraTextura() / 2;
-        posicao.y = barril.getCorpo().getPosition().y * PIXEL_METRO - barril.getAlturaTextura() / 2;
+        posicao.x = obstaculo.getCorpo().getPosition().x * PIXEL_METRO - obstaculo.getLarguraTextura() / 2;
+        posicao.y = obstaculo.getCorpo().getPosition().y * PIXEL_METRO - obstaculo.getAlturaTextura() / 2;
         // cria o objeto que representa a explosão
         Explosao explosao = new Explosao(recursos, posicao);
         explosoes.add(explosao);
@@ -277,9 +298,15 @@ public class TelaJogo implements Screen {
      * Desenha a pontuação na tela
      */
     private void desenharPontuacao() {
+        // posiciona e desenha a pontuação
         float x = camera.position.x - MainGame.LARGURA_TELA / 2 + 20;
         float y = camera.position.y + MainGame.ALTURA_TELA / 2 - 20;
-        fonte.draw(batch, (int) pontuacao + " m", x, y);
+        fonte.draw(batch, pontuacao + " pontos", x, y);
+
+        // posiciona e desenha as vidas
+        x = camera.position.x + MainGame.LARGURA_TELA / 2 - 120;
+        y = camera.position.y + MainGame.ALTURA_TELA / 2 - 20;
+        fonte.draw(batch, vidas + " vidas", x, y);
     }
 
     /**
@@ -330,20 +357,13 @@ public class TelaJogo implements Screen {
         capturarToques();
         atualizarCamera();
         atualizarObjetos(delta);
-        atualizarPontuacao();
+
+        if (vidas <= 0) {
+            gameOver();
+        }
 
         // atualiza o próximo quadro (frame) do mundo
         mundo.step(1f / 60f, 6, 2);
-    }
-
-    /**
-     * Atualiza a pontuação de acordo com o deslocamento do personagem
-     */
-    private void atualizarPontuacao() {
-        if (personagem.getSituacao() != Personagem.PARADO &&
-                personagem.getSituacao() != Personagem.MORTO) {
-            pontuacao = personagem.getPosicao().x;
-        }
     }
 
     /**
@@ -389,7 +409,7 @@ public class TelaJogo implements Screen {
      * @param delta
      */
     private void atualizarObjetos(float delta) {
-        obstaculos.atualizar(delta, personagem.getPosicao());
+        obstaculos.atualizar(delta, personagem.getPosicao().x + 20);
         personagem.atualizar(delta);
         chao.atualizar(delta);
         atualizarTiros(delta);

@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,8 +10,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
+import com.minicurso.libgdx.gdxgame.util.Util;
 
-import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.util.Util.PIXEL_METRO;
 
 /**
  * Created by Douglas on 14/05/2016.
@@ -26,6 +28,7 @@ public class Tiro {
     private OrthographicCamera camera;
     private World mundo;
     private float posicaoX;
+    private float posicaoY = 3.5f;
     private Body corpo;
     protected Recursos recursos;
     private Sprite sprite = new Sprite();
@@ -47,7 +50,10 @@ public class Tiro {
      */
     private void initCorpo() {
         // cria o corpo
-        corpo = Util.criarCorpo(mundo, BodyDef.BodyType.DynamicBody, posicaoX, 3.5f);
+        corpo = Util.criarCorpo(mundo, BodyDef.BodyType.DynamicBody, posicaoX, posicaoY);
+        // zera a gravidade do tiro
+        corpo.setGravityScale(0);
+
         // cria a forma do corpo
         CircleShape shape = new CircleShape();
         shape.setRadius(RAIO_CORPO);

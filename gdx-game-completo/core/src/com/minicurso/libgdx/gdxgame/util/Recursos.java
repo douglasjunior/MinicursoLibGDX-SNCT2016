@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -17,25 +17,34 @@ public class Recursos {
     // guarda uma cópia de todos os recursos para facilitar destruílos no final
     Array<Disposable> todosRecursos = new Array<Disposable>();
 
-    Array<Texture> txPersonagemAtirando;
-    Array<Texture> txPersonagemCorrendo;
-    Array<Texture> txPersonagemDeslizando;
-    Array<Texture> txPersonagemMorto;
-    Array<Texture> txPersonagemParado;
-    Array<Texture> txPersonagemPulando;
-    Array<Texture> txPersonagemTiro;
-    Array<Texture> txExplosao;
-    Texture txBarril;
-    Texture txChao;
-    Texture txEspinho;
-    Texture txFundo;
-    Texture txSerra;
-    Music msMenu;
-    Music msJogo;
-    Sound smExplosao;
-    Sound smGameover;
-    Sound smPasso;
-    Sound smTiro;
+    // Texturas com animação
+    public Array<Texture> txPersonagemAtirando;
+    public Array<Texture> txPersonagemCorrendo;
+    public Array<Texture> txPersonagemDeslizando;
+    public Array<Texture> txPersonagemMorto;
+    public Array<Texture> txPersonagemParado;
+    public Array<Texture> txPersonagemPulando;
+    public Array<Texture> txPersonagemTiro;
+    public Array<Texture> txExplosao;
+    // Texturas fixas
+    public Texture txAbacaxi;
+    public Texture txCenoura;
+    public Texture txChao;
+    public Texture txDonut;
+    public Texture txFritas;
+    public Texture txFundo;
+    public Texture txLanche;
+    public Texture txMaca;
+    public Texture txMelancia;
+    public Texture txMorango;
+    public Texture txPizza;
+    // Áudios e músicas
+    public Music msMenu;
+    public Music msJogo;
+    public Sound smExplosao;
+    public Sound smGameover;
+    public Sound smPasso;
+    public Sound smTiro;
 
     /**
      * Inicia todos os recursos utilizados no jogo, texturas, músicas, etc...
@@ -71,11 +80,17 @@ public class Recursos {
 
         txExplosao = carregarTexturas("explosao");
 
-        txBarril = criarTextura(Gdx.files.internal("cenario/barril.png"));
+        txAbacaxi = criarTextura(Gdx.files.internal("cenario/abacaxi.png"));
+        txCenoura = criarTextura(Gdx.files.internal("cenario/cenoura.png"));
         txChao = criarTextura(Gdx.files.internal("cenario/chao.png"));
-        txEspinho = criarTextura(Gdx.files.internal("cenario/espinho.png"));
+        txDonut = criarTextura(Gdx.files.internal("cenario/donut.png"));
+        txFritas = criarTextura(Gdx.files.internal("cenario/fritas.png"));
         txFundo = criarTextura(Gdx.files.internal("cenario/fundo.png"));
-        txSerra = criarTextura(Gdx.files.internal("cenario/serra.png"));
+        txLanche = criarTextura(Gdx.files.internal("cenario/lanche.png"));
+        txMaca = criarTextura(Gdx.files.internal("cenario/maca.png"));
+        txMelancia = criarTextura(Gdx.files.internal("cenario/melancia.png"));
+        txMorango = criarTextura(Gdx.files.internal("cenario/morango.png"));
+        txPizza = criarTextura(Gdx.files.internal("cenario/pizza.png"));
     }
 
     /**

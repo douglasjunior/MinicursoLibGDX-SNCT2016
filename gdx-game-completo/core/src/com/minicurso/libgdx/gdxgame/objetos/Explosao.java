@@ -1,9 +1,11 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
+import com.minicurso.libgdx.gdxgame.util.Util;
 
 /**
  * Classe que repesenta a Explosão

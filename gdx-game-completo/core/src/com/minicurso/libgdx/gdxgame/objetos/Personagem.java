@@ -1,4 +1,4 @@
-package com.minicurso.libgdx.gdxgame;
+package com.minicurso.libgdx.gdxgame.objetos;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.minicurso.libgdx.gdxgame.util.Recursos;
+import com.minicurso.libgdx.gdxgame.util.Util;
 
-import static com.minicurso.libgdx.gdxgame.Util.*;
+import static com.minicurso.libgdx.gdxgame.util.Util.*;
 
 /**
  * Classe que representa o personagem e suas ações
@@ -142,7 +144,7 @@ public class Personagem {
     private void atualizarPulo() {
         if (situacao != MORTO) {
             Vector2 velocidade = corpo.getLinearVelocity();
-            if (velocidade.y > 0) {
+            if (velocidade.y != 0) {
                 situacao = PULANDO;
             }
             if (situacao == PULANDO && velocidade.y == 0) {
