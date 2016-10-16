@@ -62,27 +62,6 @@ public abstract class Obstaculo {
     }
 
     /**
-     * Retorna a posição Y do corpo físico em metros
-     *
-     * @return
-     */
-    protected abstract float getPosicaoCorpoY();
-
-    /**
-     * Retorna a largura da textura
-     *
-     * @return
-     */
-    public abstract float getLarguraTextura();
-
-    /**
-     * Retorna a altura da textura
-     *
-     * @return
-     */
-    public abstract float getAlturaTextura();
-
-    /**
      * Retorna a largura do corpo físico em metros
      *
      * @return
@@ -100,12 +79,6 @@ public abstract class Obstaculo {
         return getAlturaTextura() / PIXEL_METRO;
     }
 
-    /**
-     * Retorna o objeto da textura
-     *
-     * @return
-     */
-    protected abstract Texture getTextura();
 
     /**
      * Atualiza os atributos necessários do obstáculo
@@ -116,12 +89,6 @@ public abstract class Obstaculo {
         atualizarSprite();
     }
 
-    /**
-     * Retorna a pontuação do obstáculo
-     *
-     * @return
-     */
-    public abstract int getPontuacao();
 
     /**
      * Atualiza os atributos do sprite
@@ -187,4 +154,39 @@ public abstract class Obstaculo {
     public boolean isDestruir() {
         return destruir;
     }
+
+    /**
+     * Retorna a posição Y do corpo físico em metros
+     *
+     * @return
+     */
+    protected abstract float getPosicaoCorpoY();
+
+    /**
+     * Retorna a largura da textura
+     *
+     * @return
+     */
+    public abstract float getLarguraTextura();
+
+    /**
+     * Retorna a altura da textura
+     *
+     * @return
+     */
+    public abstract float getAlturaTextura();
+
+    /**
+     * Retorna o objeto da textura
+     *
+     * @return
+     */
+    protected abstract Texture getTextura();
+
+    /**
+     * Retorna a pontuação do obstáculo
+     *
+     * @return
+     */
+    public abstract int getPontuacao();
 }

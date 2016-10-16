@@ -48,7 +48,7 @@ public class Morango extends Obstaculo {
      */
     @Override
     public float getLarguraTextura() {
-        return 80;
+        return 50;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Morango extends Obstaculo {
      */
     @Override
     public float getAlturaTextura() {
-        return 80;
+        return 60;
     }
 
     /**

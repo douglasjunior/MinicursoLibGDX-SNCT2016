@@ -1,6 +1,7 @@
 package com.minicurso.libgdx.gdxgame.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -100,8 +101,11 @@ public class Util {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonte/roboto.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
         params.size = tamanho;
-        params.shadowOffsetX = 2;
-        params.shadowOffsetY = 2;
+        params.color = Color.BROWN;
+        params.shadowOffsetX = 0;
+        params.shadowOffsetY = 0;
+        params.borderWidth = 2;
+        params.borderColor = Color.WHITE;
         BitmapFont fonte = generator.generateFont(params);
         generator.dispose();
         return fonte;

@@ -38,9 +38,10 @@ public class Donut extends Obstaculo {
      */
     @Override
     protected void atualizar(float delta) {
-        // incrementa o ângulo do donut para fazer o efeito de rotação
+        // incrementa o ângulo para fazer o efeito de rotação
         float angulo = getCorpo().getAngle() - delta * 5;
         getCorpo().setTransform(getCorpo().getPosition(), angulo);
+
         // chama o método atualizar genérico da classe Obstaculo
         super.atualizar(delta);
     }

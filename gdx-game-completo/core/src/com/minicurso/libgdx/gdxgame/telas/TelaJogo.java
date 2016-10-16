@@ -34,23 +34,30 @@ public class TelaJogo implements Screen {
 
     private MainGame game;
 
-    private SpriteBatch batch;
-    private Recursos recursos;
-
     // objeto que define o comportamento da câmera do jogo
     private OrthographicCamera camera;
+    private OrthographicCamera cameraPontuacao;
     // objeto que representa o mundo fíciso do jogo, com força da gravidade e colisão
     private World mundo;
+    // objeto que carrega os recursos das texturas e aúdios
+    private Recursos recursos;
+    // cobjeto responsável por desenhar as texturas e os sprites
+    private SpriteBatch batch;
+    // objeto que desenha texto (Strings) na tela
+    private BitmapFont fonte;
+
     private Personagem personagem;
     private Obstaculos obstaculos;
     private Chao chao;
     private Array<Tiro> tiros = new Array<Tiro>();
     private Array<Explosao> explosoes = new Array<Explosao>();
+    private Vector2 posicaoPontuacao;
+    private Vector2 posicaoVidas;
+    private Vector2 posicaoGameover;
 
     private boolean reiniciarJogo = false;
     private int pontuacao = 0;
     private int vidas = 3;
-    private BitmapFont fonte;
 
     // objeto que imprime o contorno dos corpos na tela (utilizado para debug)
     private Box2DDebugRenderer debug;
@@ -75,6 +82,7 @@ public class TelaJogo implements Screen {
         initPersonagem();
         initObstaculos();
         initMusica();
+        initTextos();
     }
 
     /**
@@ -86,6 +94,12 @@ public class TelaJogo implements Screen {
     public void render(float delta) {
         atualizar(delta);
         desenhar();
+
+        // verifica se o jogo deve ser reiniciado
+        if (reiniciarJogo) {
+            // cria uma nova tela de jogo
+            game.setScreen(new TelaJogo(game));
+        }
     }
 
     /**
@@ -140,6 +154,10 @@ public class TelaJogo implements Screen {
         camera = new OrthographicCamera(MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
         camera.setToOrtho(false, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
         camera.update();
+
+        cameraPontuacao = new OrthographicCamera(MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
+        cameraPontuacao.setToOrtho(false, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
+        cameraPontuacao.update();
     }
 
     /**
@@ -187,6 +205,26 @@ public class TelaJogo implements Screen {
         // configura a música de gameplay
         recursos.msJogo.setLooping(true);
         recursos.msJogo.setVolume(0.2f);
+    }
+
+    /**
+     * Inicia a posição dos textos
+     */
+    private void initTextos() {
+        // define a posição da pontuação
+        float x = cameraPontuacao.position.x - MainGame.LARGURA_TELA / 2 + 20;
+        float y = cameraPontuacao.position.y + MainGame.ALTURA_TELA / 2 - 20;
+        posicaoPontuacao = new Vector2(x, y);
+
+        // define a posição das vidas
+        x = cameraPontuacao.position.x + MainGame.LARGURA_TELA / 2 - 120;
+        y = cameraPontuacao.position.y + MainGame.ALTURA_TELA / 2 - 20;
+        posicaoVidas = new Vector2(x, y);
+
+        // define a posição do Gameover
+        x = cameraPontuacao.position.x - 80;
+        y = cameraPontuacao.position.y;
+        posicaoGameover = new Vector2(x, y);
     }
 
     /**
@@ -274,39 +312,34 @@ public class TelaJogo implements Screen {
     protected void desenhar() {
         // inicia o desenho
         batch.begin();
-        // configura o batch de acordo com o tamanho da câmera
-        batch.setProjectionMatrix(camera.combined);
 
+        // configura o batch de acordo com o tamanho e posição da câmera do jogo
+        batch.setProjectionMatrix(camera.combined);
         desenharFundo();
         desenharObjetos();
-        desenharPontuacao();
+
+        // configura o batch de acordo com tamanho e posição da câmera das pontuações
+        batch.setProjectionMatrix(cameraPontuacao.combined);
+        desenharTextos();
 
         // finaliza o desenho
         batch.end();
 
         // desenha o debug dos corpos físicos
         //debug.render(mundo, camera.combined.cpy().scl(PIXEL_METRO));
-
-        // verifica se o jogo deve ser reiniciado
-        if (reiniciarJogo) {
-            // cria uma nova tela de jogo
-            game.setScreen(new TelaJogo(game));
-        }
     }
 
     /**
-     * Desenha a pontuação na tela
+     * Desenha a pontuação, vidas e gameover na tela
      */
-    private void desenharPontuacao() {
-        // posiciona e desenha a pontuação
-        float x = camera.position.x - MainGame.LARGURA_TELA / 2 + 20;
-        float y = camera.position.y + MainGame.ALTURA_TELA / 2 - 20;
-        fonte.draw(batch, pontuacao + " pontos", x, y);
-
-        // posiciona e desenha as vidas
-        x = camera.position.x + MainGame.LARGURA_TELA / 2 - 120;
-        y = camera.position.y + MainGame.ALTURA_TELA / 2 - 20;
-        fonte.draw(batch, vidas + " vidas", x, y);
+    private void desenharTextos() {
+        // desenha a pontuação
+        fonte.draw(batch, pontuacao + " pontos", posicaoPontuacao.x, posicaoPontuacao.y);
+        // desenha as vidas
+        fonte.draw(batch, vidas + " vidas", posicaoVidas.x, posicaoVidas.y);
+        // desenha gameover e o personagem estiver morto
+        if (personagem.getSituacao() == Personagem.MORTO)
+            fonte.draw(batch, "GAME OVER", posicaoGameover.x, posicaoGameover.y);
     }
 
     /**
