@@ -105,10 +105,19 @@ public class Personagem {
             tempoPassos += delta;
             // reproduz a cada 1 segundo
             if (tempoPassos >= 1) {
-                tempoPassos = 0;
-                recursos.smPasso.play();
+                playPassos();
             }
         }
+    }
+
+    private void playPassos(){
+        tempoPassos = 0;
+        recursos.smPasso.play();
+    }
+
+    private void stopPassos(){
+        tempoPassos = 1;
+        recursos.smPasso.stop();
     }
 
     /**
@@ -292,6 +301,7 @@ public class Personagem {
         tempoAtirando = 0;
         situacao = PULANDO;
         corpo.applyLinearImpulse(new Vector2(0, 7), corpo.getWorldCenter(), false);
+        stopPassos();
     }
 
     /**
@@ -299,6 +309,7 @@ public class Personagem {
      */
     public void deslizar() {
         tempoDeslizando = 1.3f;
+        stopPassos();
     }
 
     /**

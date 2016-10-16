@@ -244,7 +244,7 @@ public class TelaJogo implements Screen {
         // cria o objeto que representa a explosão
         Explosao explosao = new Explosao(recursos, posicao);
         explosoes.add(explosao);
-        recursos.smExplosao.play();
+        recursos.smExplosao.play(0.5f);
     }
 
     /**
@@ -421,10 +421,10 @@ public class TelaJogo implements Screen {
         atrasoTiro += delta;
         // verifica se o personagem está atirando, se a quantidade máxima de tiros foi disparada e se o atraso já foi superado
         if (personagem.getSituacao() == Personagem.ATIRANDO && tiros.size < 3 && atrasoTiro >= 1) {
-            Tiro tiro = new Tiro(recursos, mundo, camera, personagem.getPosicao().x + 1);
+            Tiro tiro = new Tiro(recursos, mundo, camera, personagem.getPosicao().x + 1.3f);
             tiros.add(tiro);
             atrasoTiro = 0;
-            recursos.smTiro.play();
+            recursos.smTiro.play(0.5f);
         }
 
         // atualiza ou destroi os tiros se ele já saiu da tela
