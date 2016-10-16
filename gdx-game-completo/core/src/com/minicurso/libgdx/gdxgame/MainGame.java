@@ -8,13 +8,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MainGame extends Game {
 
+    // resolução do jogo em pixels
     public static final int LARGURA_TELA = 640, ALTURA_TELA = 360;
 
-    // cobjeto responsável por desenhar as texturas e os sprites
-    private SpriteBatch batch;
     // objeto que carrega os recursos das texturas e aúdios
     private Recursos recursos;
-    // objeto que desenha texto na tela
+    // cobjeto responsável por desenhar as texturas e os sprites
+    private SpriteBatch batch;
+    // objeto que desenha texto (Strings) na tela
     private BitmapFont fonte;
 
     /**
@@ -30,6 +31,8 @@ public class MainGame extends Game {
 
     /**
      * Método invocado a cada quadro (frame) por segundo.
+     * <p>
+     * Se este método é chamado 60 vezes por segundo, então estamos trabalhando com 60 FPS
      */
     @Override
     public void render() {
@@ -40,8 +43,17 @@ public class MainGame extends Game {
         super.render();
     }
 
-    public SpriteBatch getBatch() {
-        return batch;
+    /**
+     * Método invocado quando o jogo é encerrado.
+     * <p>
+     * Destroi os recursos criados no início do jogo.
+     */
+    @Override
+    public void dispose() {
+        super.dispose();
+        fonte.dispose();
+        batch.dispose();
+        recursos.destruirRecursos();
     }
 
     public synchronized Recursos getRecursos() {
@@ -52,18 +64,12 @@ public class MainGame extends Game {
         return recursos;
     }
 
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
     public BitmapFont getFonte() {
         return fonte;
     }
 
-    /**
-     * Destroi os recursos criados no início do jogo.
-     */
-    @Override
-    public void dispose() {
-        super.dispose();
-        fonte.dispose();
-        batch.dispose();
-        recursos.destruirRecursos();
-    }
 }

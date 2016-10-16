@@ -2,6 +2,7 @@ package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,7 +19,9 @@ import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
  * Tela que representa o cenário do jogo.
  * Created by Douglas on 14/05/2016.
  */
-public class TelaJogo extends TelaBase {
+public class TelaJogo implements Screen {
+
+    private MainGame game;
 
     private SpriteBatch batch;
     private Recursos recursos;
@@ -39,12 +42,13 @@ public class TelaJogo extends TelaBase {
     private float pontuacao = 0;
     private BitmapFont fonte;
 
+    // objeto que imprime o contorno dos corpos na tela (utilizado para debug)
     private Box2DDebugRenderer debug;
 
     private float atrasoTiro = 0;
 
     public TelaJogo(MainGame game) {
-        super(game);
+        this.game = game;
     }
 
     /**
@@ -60,6 +64,62 @@ public class TelaJogo extends TelaBase {
         initMundo();
         initPersonagem();
         initMusica();
+    }
+
+    /**
+     * Método invocado a cada quadro (frame) por segundo.
+     * <p>
+     * Se este método é chamado 60 vezes por segundo, então estamos trabalhando com 60 FPS
+     */
+    @Override
+    public void render(float delta) {
+        atualizar(delta);
+        desenhar();
+    }
+
+    /**
+     * Chamado sempre que o jogo é minimizado
+     */
+    @Override
+    public void pause() {
+
+    }
+
+    /**
+     * Chamado toda vez que a tela muda de tamanho.
+     *
+     * @param width
+     * @param height
+     */
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    /**
+     * Chamado toda vez que o jogo volta ao topo das janelas
+     */
+    @Override
+    public void resume() {
+
+    }
+
+    /**
+     * Chamado quando a tela é substituída por outra
+     */
+    @Override
+    public void hide() {
+        // quando a tela é substituída o dispose também deve ser invocado
+        dispose();
+    }
+
+    /**
+     * Destroi os recursos criados pela tela
+     */
+    @Override
+    public void dispose() {
+        mundo.dispose();
+        debug.dispose();
     }
 
     /**
@@ -178,7 +238,6 @@ public class TelaJogo extends TelaBase {
     /**
      * Chamado a cada quadro por segundo para desenhar os recursos na tela
      */
-    @Override
     protected void desenhar() {
         // inicia o desenho
         batch.begin();
@@ -263,7 +322,6 @@ public class TelaJogo extends TelaBase {
      *
      * @param delta
      */
-    @Override
     protected void atualizar(float delta) {
         capturarTeclas();
         capturarToques();
@@ -483,12 +541,4 @@ public class TelaJogo extends TelaBase {
         personagem.correr();
     }
 
-    /**
-     * Destroi os recursos criados pela tela
-     */
-    @Override
-    public void dispose() {
-        mundo.dispose();
-        debug.dispose();
-    }
 }

@@ -13,7 +13,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
 
 /**
- * Classe genérica que define os obstáculos
+ * Classe genérica que define os obstáculos.
+ *
  * Created by Douglas on 14/05/2016.
  */
 public abstract class Obstaculo {
