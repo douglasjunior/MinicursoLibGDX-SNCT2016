@@ -33,6 +33,7 @@ public class Personagem {
 
     private Recursos recursos;
     private int situacao = PARADO;
+    // estágio controla a troca de sprites do personagem para realizar a animação
     private float estagio = 0;
     private Sprite sprite = new Sprite();
 

@@ -18,7 +18,9 @@ import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
  */
 public class Tiro {
 
-    private static float LARGURA_TEXTURA = 30, ALTURA_TEXTURA = 24.2f,
+    private static float
+            LARGURA_TEXTURA = 30,
+            ALTURA_TEXTURA = 24.2f,
             RAIO_CORPO = (LARGURA_TEXTURA / 2) / PIXEL_METRO;
 
     private OrthographicCamera camera;
@@ -27,7 +29,9 @@ public class Tiro {
     private Body corpo;
     protected Recursos recursos;
     private Sprite sprite = new Sprite();
+    // estágio controla a troca de sprites do tiro para realizar a animação
     private float estagio = 0;
+    private boolean destruir = false;
 
     public Tiro(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         this.recursos = recursos;
@@ -128,5 +132,18 @@ public class Tiro {
             return true;
         }
         return false;
+    }
+
+    public boolean isDestruir() {
+        return destruir;
+    }
+
+    /**
+     * Marca o Tiro para ser destruído.
+     *
+     * @param destruir
+     */
+    public void setDestruir(boolean destruir) {
+        this.destruir = destruir;
     }
 }

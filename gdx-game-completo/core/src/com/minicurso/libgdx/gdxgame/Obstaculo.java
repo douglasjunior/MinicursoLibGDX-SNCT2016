@@ -14,7 +14,7 @@ import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
 
 /**
  * Classe genérica que define os obstáculos.
- *
+ * <p>
  * Created by Douglas on 14/05/2016.
  */
 public abstract class Obstaculo {
@@ -25,6 +25,7 @@ public abstract class Obstaculo {
     private Body corpo;
     protected Recursos recursos;
     private Sprite sprite = new Sprite();
+    private boolean destruir = false;
 
     public Obstaculo(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         this.recursos = recursos;
@@ -163,5 +164,18 @@ public abstract class Obstaculo {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Marca o Obstáculo para ser destruído.
+     *
+     * @param destruir
+     */
+    public void setDestruir(boolean destruir) {
+        this.destruir = destruir;
+    }
+
+    public boolean isDestruir() {
+        return destruir;
     }
 }

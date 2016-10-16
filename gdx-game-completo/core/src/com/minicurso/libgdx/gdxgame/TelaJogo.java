@@ -6,12 +6,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.Iterator;
 
 import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
 
@@ -32,11 +33,10 @@ public class TelaJogo implements Screen {
     // objeto que representa o mundo fíciso do jogo, com força da gravidade e colisão
     private World mundo;
     private Personagem personagem;
+    private Obstaculos obstaculos;
     private Chao chao;
-    private Array<Obstaculo> obstaculos = new Array<Obstaculo>();
     private Array<Tiro> tiros = new Array<Tiro>();
     private Array<Explosao> explosoes = new Array<Explosao>();
-    private Array objetosMortos = new Array();
 
     private boolean reiniciarJogo = false;
     private float pontuacao = 0;
@@ -63,6 +63,7 @@ public class TelaJogo implements Screen {
         initCamera();
         initMundo();
         initPersonagem();
+        initObstaculos();
         initMusica();
     }
 
@@ -123,18 +124,6 @@ public class TelaJogo implements Screen {
     }
 
     /**
-     * Inicia as músicas que tocarão durante o jogo
-     */
-    private void initMusica() {
-        recursos.msMenu.setLooping(true);
-        recursos.msMenu.setVolume(1f);
-        recursos.msMenu.play();
-
-        recursos.msJogo.setLooping(true);
-        recursos.msJogo.setVolume(0.2f);
-    }
-
-    /**
      * Inicia o objeto da câmera
      */
     private void initCamera() {
@@ -159,6 +148,35 @@ public class TelaJogo implements Screen {
         });
         // cria o objeto para debug para desenhar os objetos do corpo físico
         debug = new Box2DDebugRenderer();
+    }
+
+    /**
+     * Cria o personagem e o chão
+     */
+    private void initPersonagem() {
+        personagem = new Personagem(recursos, mundo);
+        chao = new Chao(recursos, mundo, camera);
+    }
+
+    /**
+     * Cria o objeto responsável por controlar os obstáculos
+     */
+    private void initObstaculos() {
+        obstaculos = new Obstaculos(recursos, mundo, camera);
+    }
+
+    /**
+     * Inicia as músicas que tocarão durante o jogo
+     */
+    private void initMusica() {
+        // configura e inicia a música de abertura
+        recursos.msMenu.setLooping(true);
+        recursos.msMenu.setVolume(1f);
+        recursos.msMenu.play();
+
+        // configura a música de gameplay
+        recursos.msJogo.setLooping(true);
+        recursos.msJogo.setVolume(0.2f);
     }
 
     /**
@@ -202,12 +220,14 @@ public class TelaJogo implements Screen {
             tiro = (Tiro) contact.getFixtureB().getUserData();
             obstaculo = (Obstaculo) contact.getFixtureA().getUserData();
         }
-        // adiciona o Tiro na lista de objetos a serem destruidos
-        objetosMortos.add(tiro);
+
+        // marca o tiro para ser destruido
+        tiro.setDestruir(true);
+
         // verifica se o tiro se colidiu com o barril
         if (obstaculo instanceof Barril) {
-            objetosMortos.add(obstaculo);
             criarExplosao((Barril) obstaculo);
+            obstaculo.setDestruir(true);
         }
     }
 
@@ -225,14 +245,6 @@ public class TelaJogo implements Screen {
         Explosao explosao = new Explosao(recursos, posicao);
         explosoes.add(explosao);
         recursos.smExplosao.play();
-    }
-
-    /**
-     * Cria o personagem e o chão
-     */
-    private void initPersonagem() {
-        personagem = new Personagem(recursos, mundo);
-        chao = new Chao(recursos, mundo, camera);
     }
 
     /**
@@ -274,7 +286,7 @@ public class TelaJogo implements Screen {
      * Desenha os objetos na ordem correta
      */
     private void desenharObjetos() {
-        desenharObstaculos();
+        obstaculos.desenhar(batch);
         personagem.desenhar(batch);
         chao.desenhar(batch);
         desenharTiros();
@@ -296,15 +308,6 @@ public class TelaJogo implements Screen {
     private void desenharTiros() {
         for (Tiro tiro : tiros) {
             tiro.desenhar(batch);
-        }
-    }
-
-    /**
-     * Desenha os obstáculos
-     */
-    private void desenharObstaculos() {
-        for (Obstaculo obstaculo : obstaculos) {
-            obstaculo.desenhar(batch);
         }
     }
 
@@ -331,8 +334,6 @@ public class TelaJogo implements Screen {
 
         // atualiza o próximo quadro (frame) do mundo
         mundo.step(1f / 60f, 6, 2);
-
-        destruirObjetosMortos();
     }
 
     /**
@@ -383,41 +384,12 @@ public class TelaJogo implements Screen {
     }
 
     /**
-     * Destroi os objetos que foram adicionados na lista de objetos mortos
-     */
-    private void destruirObjetosMortos() {
-        for (Object obj : objetosMortos) {
-            destruirObjeto(obj);
-        }
-        // limpa a lista de objetos mortos
-        objetosMortos.clear();
-    }
-
-    /**
-     * Método genérico que destroi objetos
-     *
-     * @param objeto
-     */
-    private void destruirObjeto(Object objeto) {
-        // verifica o tipo do objeto para destruílo
-        if (objeto instanceof Tiro) {
-            Tiro tiro = (Tiro) objeto;
-            tiros.removeValue(tiro, false);
-            mundo.destroyBody(tiro.getCorpo());
-        } else if (objeto instanceof Obstaculo) {
-            Obstaculo obstaculo = (Obstaculo) objeto;
-            obstaculos.removeValue(obstaculo, false);
-            mundo.destroyBody(obstaculo.getCorpo());
-        }
-    }
-
-    /**
      * Atualiza todos os objetos do jogo em ordem
      *
      * @param delta
      */
     private void atualizarObjetos(float delta) {
-        atualizarObstaculos(delta);
+        obstaculos.atualizar(delta, personagem.getPosicao());
         personagem.atualizar(delta);
         chao.atualizar(delta);
         atualizarTiros(delta);
@@ -456,44 +428,14 @@ public class TelaJogo implements Screen {
         }
 
         // atualiza ou destroi os tiros se ele já saiu da tela
-        for (Tiro tiro : tiros) {
-            if (tiro.estaForaDaTela())
-                objetosMortos.add(tiro);
-            else
+        for (Iterator<Tiro> it = tiros.iterator(); it.hasNext(); ) {
+            Tiro tiro = it.next();
+            if (tiro.estaForaDaTela() || tiro.isDestruir()) {
+                it.remove();
+                mundo.destroyBody(tiro.getCorpo());
+            } else {
                 tiro.atualizar(delta);
-        }
-    }
-
-    /**
-     * Atualiza ou cria os obstáculos aleatoriamente
-     *
-     * @param delta
-     */
-    private void atualizarObstaculos(float delta) {
-        // cria somente 1 obstáculos por vez
-        if (obstaculos.size == 0) {
-            // número aleatório para decidir qual obstáculo será criado
-            int num = MathUtils.random(0, 2);
-            Obstaculo obstaculo;
-            switch (num) {
-                case 0:
-                    obstaculo = new Espinho(recursos, mundo, camera, personagem.getPosicao().x + 20);
-                    break;
-                case 1:
-                    obstaculo = new Serra(recursos, mundo, camera, personagem.getPosicao().x + 20);
-                    break;
-                default:
-                    obstaculo = new Barril(recursos, mundo, camera, personagem.getPosicao().x + 20);
-                    break;
             }
-            obstaculos.add(obstaculo);
-        }
-        // atualiza os obstáculos ou remove se já saiu da tela
-        for (Obstaculo obstaculo : obstaculos) {
-            if (obstaculo.estaForaDaTela())
-                objetosMortos.add(obstaculo);
-            else
-                obstaculo.atualizar(delta);
         }
     }
 
