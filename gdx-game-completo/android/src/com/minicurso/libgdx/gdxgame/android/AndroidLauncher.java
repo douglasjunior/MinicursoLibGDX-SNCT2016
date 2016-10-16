@@ -1,11 +1,11 @@
-package br.grupointegrado.conccepar.gdxgame.android;
+package com.minicurso.libgdx.gdxgame.android;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-import br.grupointegrado.conccepar.gdxgame.MainGame;
+import com.minicurso.libgdx.gdxgame.MainGame;
 
 public class AndroidLauncher extends AndroidApplication {
     /**

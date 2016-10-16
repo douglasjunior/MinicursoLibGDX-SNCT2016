@@ -1,4 +1,4 @@
-package br.grupointegrado.conccepar.gdxgame;
+package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import static br.grupointegrado.conccepar.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
 
 /**
  * Classe genérica que define os obstáculos

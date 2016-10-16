@@ -1,9 +1,9 @@
-package br.grupointegrado.conccepar.gdxgame.desktop;
+package com.minicurso.libgdx.gdxgame.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import br.grupointegrado.conccepar.gdxgame.MainGame;
+import com.minicurso.libgdx.gdxgame.MainGame;
 
 public class DesktopLauncher {
     /**

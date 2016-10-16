@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "br.grupointegrado.conccepar.gdxgame.android"
+        applicationId "com.minicurso.libgdx.gdxgame.android"
         minSdkVersion 8
         targetSdkVersion 24
     }
@@ -68,7 +68,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'br.grupointegrado.conccepar.gdxgame.android/br.grupointegrado.conccepar.gdxgame.android.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.minicurso.libgdx.gdxgame.android/com.minicurso.libgdx.gdxgame.android.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.

@@ -1,4 +1,4 @@
-package br.grupointegrado.conccepar.gdxgame;
+package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-import static br.grupointegrado.conccepar.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
 
 /**
  * Tela que representa o cenário do jogo.

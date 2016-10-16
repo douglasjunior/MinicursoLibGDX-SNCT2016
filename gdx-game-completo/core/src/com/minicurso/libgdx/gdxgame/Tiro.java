@@ -1,4 +1,4 @@
-package br.grupointegrado.conccepar.gdxgame;
+package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-import static br.grupointegrado.conccepar.gdxgame.Util.PIXEL_METRO;
+import static com.minicurso.libgdx.gdxgame.Util.PIXEL_METRO;
 
 /**
  * Created by Douglas on 14/05/2016.

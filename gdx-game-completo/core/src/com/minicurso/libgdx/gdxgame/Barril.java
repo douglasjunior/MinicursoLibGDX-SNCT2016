@@ -1,4 +1,4 @@
-package br.grupointegrado.conccepar.gdxgame;
+package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;

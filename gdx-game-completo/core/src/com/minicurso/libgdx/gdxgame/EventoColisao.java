@@ -1,4 +1,4 @@
-package br.grupointegrado.conccepar.gdxgame;
+package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
