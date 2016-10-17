@@ -34,7 +34,7 @@ public class Melancia extends Obstaculo {
      */
     @Override
     public float getLarguraTextura() {
-        return 90;
+        return 60;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Melancia extends Obstaculo {
      */
     @Override
     public float getAlturaTextura() {
-        return 90;
+        return 60;
     }
 
     /**

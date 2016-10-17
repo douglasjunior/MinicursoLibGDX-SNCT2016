@@ -45,7 +45,7 @@ public class Pizza extends Obstaculo {
      */
     @Override
     public float getAlturaTextura() {
-        return 60;
+        return 65;
     }
 
     /**
