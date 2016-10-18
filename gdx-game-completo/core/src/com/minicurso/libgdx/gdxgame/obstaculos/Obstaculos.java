@@ -5,15 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.minicurso.libgdx.gdxgame.objetos.Abacaxi;
-import com.minicurso.libgdx.gdxgame.objetos.Cenoura;
-import com.minicurso.libgdx.gdxgame.objetos.Donut;
-import com.minicurso.libgdx.gdxgame.objetos.Fritas;
-import com.minicurso.libgdx.gdxgame.objetos.Lanche;
-import com.minicurso.libgdx.gdxgame.objetos.Maca;
-import com.minicurso.libgdx.gdxgame.objetos.Melancia;
-import com.minicurso.libgdx.gdxgame.objetos.Morango;
-import com.minicurso.libgdx.gdxgame.objetos.Pizza;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 import java.util.Iterator;

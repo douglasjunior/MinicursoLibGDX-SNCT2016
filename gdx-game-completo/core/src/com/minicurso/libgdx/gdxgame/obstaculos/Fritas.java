@@ -1,18 +1,20 @@
-package com.minicurso.libgdx.gdxgame.objetos;
+package com.minicurso.libgdx.gdxgame.obstaculos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.objetos.Chao;
 import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 /**
- * Created by Douglas on 16/10/2016.
+ * Classe que representa o Fritas
+ * <p>
+ * Created by Douglas on 14/05/2016.
  */
+public class Fritas extends Obstaculo {
 
-public class Abacaxi extends Obstaculo {
-
-    public Abacaxi(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+    public Fritas(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
 
@@ -53,7 +55,7 @@ public class Abacaxi extends Obstaculo {
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txAbacaxi;
+        return recursos.txFritas;
     }
 
     /**
@@ -63,6 +65,6 @@ public class Abacaxi extends Obstaculo {
      */
     @Override
     public int getPontuacao() {
-        return +10;
+        return 0;
     }
 }

@@ -1,9 +1,9 @@
-package com.minicurso.libgdx.gdxgame.objetos;
+package com.minicurso.libgdx.gdxgame.obstaculos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
+import com.minicurso.libgdx.gdxgame.objetos.Chao;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 import static com.minicurso.libgdx.gdxgame.util.Util.PIXEL_METRO;

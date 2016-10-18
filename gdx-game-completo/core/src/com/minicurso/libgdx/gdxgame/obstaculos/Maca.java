@@ -1,25 +1,26 @@
-package com.minicurso.libgdx.gdxgame.objetos;
+package com.minicurso.libgdx.gdxgame.obstaculos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.objetos.Chao;
 import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 /**
- * Classe que representa a Donut
- * Created by Douglas on 14/05/2016.
+ * Created by Douglas on 16/10/2016.
  */
-public class Donut extends Obstaculo {
 
-    public Donut(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+public class Maca extends Obstaculo {
+
+    public Maca(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
 
     /**
-     * Cria a forma do corpo físico do Donut
+     * Cria a forma do corpo físico
      *
      * @return
      */
@@ -32,28 +33,13 @@ public class Donut extends Obstaculo {
     }
 
     /**
-     * Atualiza os atributos necessários do obstáculo
-     *
-     * @param delta
-     */
-    @Override
-    protected void atualizar(float delta) {
-        // incrementa o ângulo para fazer o efeito de rotação
-        float angulo = getCorpo().getAngle() - delta * 5;
-        getCorpo().setTransform(getCorpo().getPosition(), angulo);
-
-        // chama o método atualizar genérico da classe Obstaculo
-        super.atualizar(delta);
-    }
-
-    /**
      * Retorna a posição Y do corpo físico em metros
      *
      * @return
      */
     @Override
     protected float getPosicaoCorpoY() {
-        return Chao.ALTURA_CORPO / 2 + getAlturaCorpo() / 2 + 2.6f;
+        return Chao.ALTURA_CORPO / 2 + getAlturaCorpo() / 2 + 4f;
     }
 
     /**
@@ -63,7 +49,7 @@ public class Donut extends Obstaculo {
      */
     @Override
     public float getLarguraTextura() {
-        return 80;
+        return 55;
     }
 
     /**
@@ -73,7 +59,7 @@ public class Donut extends Obstaculo {
      */
     @Override
     public float getAlturaTextura() {
-        return 80;
+        return 60;
     }
 
     /**
@@ -83,7 +69,7 @@ public class Donut extends Obstaculo {
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txDonut;
+        return recursos.txMaca;
     }
 
     /**
@@ -93,6 +79,6 @@ public class Donut extends Obstaculo {
      */
     @Override
     public int getPontuacao() {
-        return 0;
+        return +20;
     }
 }

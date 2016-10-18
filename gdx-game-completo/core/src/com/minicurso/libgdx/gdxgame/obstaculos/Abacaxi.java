@@ -1,18 +1,18 @@
-package com.minicurso.libgdx.gdxgame.objetos;
+package com.minicurso.libgdx.gdxgame.obstaculos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
+import com.minicurso.libgdx.gdxgame.objetos.Chao;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
 
 /**
  * Created by Douglas on 16/10/2016.
  */
 
-public class Lanche extends Obstaculo {
+public class Abacaxi extends Obstaculo {
 
-    public Lanche(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+    public Abacaxi(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
 
@@ -33,7 +33,7 @@ public class Lanche extends Obstaculo {
      */
     @Override
     public float getLarguraTextura() {
-        return 90;
+        return 67;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Lanche extends Obstaculo {
      */
     @Override
     public float getAlturaTextura() {
-        return 70;
+        return 90;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Lanche extends Obstaculo {
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txLanche;
+        return recursos.txAbacaxi;
     }
 
     /**
@@ -63,7 +63,6 @@ public class Lanche extends Obstaculo {
      */
     @Override
     public int getPontuacao() {
-        return 0;
+        return +10;
     }
-
 }

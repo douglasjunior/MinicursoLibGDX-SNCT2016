@@ -1,21 +1,23 @@
-package com.minicurso.libgdx.gdxgame.objetos;
+package com.minicurso.libgdx.gdxgame.obstaculos;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.minicurso.libgdx.gdxgame.objetos.Chao;
 import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
+
+import static com.minicurso.libgdx.gdxgame.util.Util.PIXEL_METRO;
 
 /**
  * Created by Douglas on 16/10/2016.
  */
 
-public class Melancia extends Obstaculo {
+public class Cenoura extends Obstaculo {
 
-    public Melancia(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
+    public Cenoura(Recursos recursos, World mundo, OrthographicCamera camera, float posicaoX) {
         super(recursos, mundo, camera, posicaoX);
     }
-
 
     /**
      * Retorna a posição Y do corpo físico em metros
@@ -48,13 +50,23 @@ public class Melancia extends Obstaculo {
     }
 
     /**
+     * Retorna a altura do corpo físico em metros
+     *
+     * @return
+     */
+    @Override
+    protected float getAlturaCorpo() {
+        return 40 / PIXEL_METRO;
+    }
+
+    /**
      * Retorna o objeto da textura
      *
      * @return
      */
     @Override
     protected Texture getTextura() {
-        return recursos.txMelancia;
+        return recursos.txCenoura;
     }
 
     /**
@@ -66,5 +78,4 @@ public class Melancia extends Obstaculo {
     public int getPontuacao() {
         return +10;
     }
-
 }
