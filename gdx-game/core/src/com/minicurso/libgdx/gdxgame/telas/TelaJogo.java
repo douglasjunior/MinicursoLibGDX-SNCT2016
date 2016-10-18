@@ -18,7 +18,6 @@ import com.minicurso.libgdx.gdxgame.objetos.Personagem;
 import com.minicurso.libgdx.gdxgame.objetos.Tiro;
 import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculo;
 import com.minicurso.libgdx.gdxgame.obstaculos.Obstaculos;
-import com.minicurso.libgdx.gdxgame.util.EventoColisao;
 import com.minicurso.libgdx.gdxgame.util.Recursos;
 import com.minicurso.libgdx.gdxgame.util.Util;
 
@@ -151,13 +150,11 @@ public class TelaJogo implements Screen {
      * Inicia o objeto da câmera
      */
     private void initCamera() {
-        camera = new OrthographicCamera(MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
-        camera.setToOrtho(false, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
-        camera.update();
+        // inicia a câmera geral do jogo
+        // IMPLEMENTAR
 
-        cameraPontuacao = new OrthographicCamera(MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
-        cameraPontuacao.setToOrtho(false, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
-        cameraPontuacao.update();
+        // inicia a câmera do texto da pontuação
+        // IMPLEMENTAR
     }
 
     /**
@@ -165,32 +162,32 @@ public class TelaJogo implements Screen {
      */
     private void initMundo() {
         // cria o mundo físico e configura a gravidade para 200 pixels por segundo
-        mundo = new World(new Vector2(0, -9.8f), false);
+        // IMPLEMENTAR
+
         // configura o evento que detecta as colisões
-        mundo.setContactListener(new EventoColisao() {
-            @Override
-            public void beginContact(Contact contact) {
-                // quando qualquer colisão corre este evento é chamado
-                detectouColisao(contact);
-            }
-        });
+        // IMPLEMENTAR
+
         // cria o objeto para debug para desenhar os objetos do corpo físico
-        debug = new Box2DDebugRenderer();
+        // IMPLEMENTAR
     }
 
     /**
      * Cria o personagem e o chão
      */
     private void initPersonagem() {
-        personagem = new Personagem(recursos, mundo);
-        chao = new Chao(recursos, mundo, camera);
+        // instancia o objeto que controla o personagem
+        // IMPLEMENTAR
+
+        // instancia o objeto que controla o chao
+        // IMPLEMENTAR
     }
 
     /**
      * Cria o objeto responsável por controlar os obstáculos
      */
     private void initObstaculos() {
-        obstaculos = new Obstaculos(recursos, mundo, camera);
+        // instancia o objeto que controla os obstáculos
+        // IMPLEMENTAR
     }
 
     /**
@@ -198,13 +195,10 @@ public class TelaJogo implements Screen {
      */
     private void initMusica() {
         // configura e inicia a música de abertura
-        recursos.msMenu.setLooping(true);
-        recursos.msMenu.setVolume(1f);
-        recursos.msMenu.play();
+        // IMPLEMENTAR
 
-        // configura a música de gameplay
-        recursos.msJogo.setLooping(true);
-        recursos.msJogo.setVolume(0.2f);
+        // configura a música de gameplay, mas não inicia por enquanto
+        // IMPLEMENTAR
     }
 
     /**
@@ -212,19 +206,13 @@ public class TelaJogo implements Screen {
      */
     private void initTextos() {
         // define a posição da pontuação
-        float x = cameraPontuacao.position.x - MainGame.LARGURA_TELA / 2 + 20;
-        float y = cameraPontuacao.position.y + MainGame.ALTURA_TELA / 2 - 20;
-        posicaoPontuacao = new Vector2(x, y);
+        // IMPLEMENTAR
 
         // define a posição das vidas
-        x = cameraPontuacao.position.x + MainGame.LARGURA_TELA / 2 - 120;
-        y = cameraPontuacao.position.y + MainGame.ALTURA_TELA / 2 - 20;
-        posicaoVidas = new Vector2(x, y);
+        // IMPLEMENTAR
 
         // define a posição do Gameover
-        x = cameraPontuacao.position.x - 80;
-        y = cameraPontuacao.position.y;
-        posicaoGameover = new Vector2(x, y);
+        // IMPLEMENTAR
     }
 
     /**
@@ -241,30 +229,22 @@ public class TelaJogo implements Screen {
     }
 
     private void colisaoPersonagemObstaculo(Contact contato) {
-        Obstaculo obstaculo;
-        if (contato.getFixtureA().getUserData() instanceof Obstaculo) {
-            obstaculo = (Obstaculo) contato.getFixtureA().getUserData();
-        } else {
-            obstaculo = (Obstaculo) contato.getFixtureB().getUserData();
-        }
-        // se a pontuação do obstáculo é zero, então decrementa a vida
-        if (obstaculo.getPontuacao() == 0)
-            vidas--;
-        else
-            pontuacao += obstaculo.getPontuacao();
+        // verifica qual o objeto corresponde ao obstáculo, A ou B
+        // IMPLEMENTAR
+
+        // se a pontuação do obstáculo é zero, então decrementa a vida, senão soma a pontuação
+        // IMPLEMENTAR
+
         // marca o obstáculo para ser destruído
-        obstaculo.setDestruir(true);
+        // IMPLEMENTAR
     }
 
     /**
      * Transfere o personagem para MORTO
      */
     private void gameOver() {
-        // garante que o Gameover será chamado só uma vez
-        if (personagem.getSituacao() != Personagem.MORTO) {
-            personagem.morrer();
-            recursos.msJogo.stop();
-        }
+        // verifica se o personagem já está morto, se não está então mata-o e para a música
+        // IMPLEMENTAR
     }
 
     /**
@@ -273,21 +253,11 @@ public class TelaJogo implements Screen {
      * @param contact
      */
     private void colisaoTiroObstaculo(Contact contact) {
-        Tiro tiro;
-        Obstaculo obstaculo;
-        // verifica se o tiro está na FixtureA ou FixtureB
-        if (contact.getFixtureA().getUserData() instanceof Tiro) {
-            tiro = (Tiro) contact.getFixtureA().getUserData();
-            obstaculo = (Obstaculo) contact.getFixtureB().getUserData();
-        } else {
-            tiro = (Tiro) contact.getFixtureB().getUserData();
-            obstaculo = (Obstaculo) contact.getFixtureA().getUserData();
-        }
+        // verifica se o tiro e o obstáculo estão no o objeto A ou B
+        // IMPLEMENTAR
 
-        // marca o tiro para ser destruido
-        criarExplosao(obstaculo);
-        tiro.setDestruir(true);
-        obstaculo.setDestruir(true);
+        // cria a explosão e marca o tiro e o obstáculo para serem destruídos
+        // IMPLEMENTAR
     }
 
     /**
@@ -297,13 +267,10 @@ public class TelaJogo implements Screen {
      */
     private void criarExplosao(Obstaculo obstaculo) {
         // define a posição da explosão
-        Vector2 posicao = new Vector2();
-        posicao.x = obstaculo.getCorpo().getPosition().x * PIXEL_METRO - obstaculo.getLarguraTextura() / 2;
-        posicao.y = obstaculo.getCorpo().getPosition().y * PIXEL_METRO - obstaculo.getAlturaTextura() / 2;
-        // cria o objeto que representa a explosão
-        Explosao explosao = new Explosao(recursos, posicao);
-        explosoes.add(explosao);
-        recursos.smExplosao.play(0.5f);
+        // IMPLEMENTAR
+
+        // cria o objeto que representa a explosão, adiciona na lista e executa o efeito sonoro
+        // IMPLEMENTAR
     }
 
     /**
@@ -313,20 +280,21 @@ public class TelaJogo implements Screen {
         // inicia o desenho
         batch.begin();
 
-        // configura o batch de acordo com o tamanho e posição da câmera do jogo
-        batch.setProjectionMatrix(camera.combined);
-        desenharFundo();
-        desenharObjetos();
-
         // configura o batch de acordo com tamanho e posição da câmera das pontuações
         batch.setProjectionMatrix(cameraPontuacao.combined);
+        desenharFundo();
         desenharTextos();
+
+        // configura o batch de acordo com o tamanho e posição da câmera do jogo
+        batch.setProjectionMatrix(camera.combined);
+        desenharObjetos();
 
         // finaliza o desenho
         batch.end();
 
         // desenha o debug dos corpos físicos
-        //debug.render(mundo, camera.combined.cpy().scl(PIXEL_METRO));
+        // importante criar uma cópia da posição da câmera antes de converser para metros
+        debug.render(mundo, camera.combined.cpy().scl(PIXEL_METRO));
     }
 
     /**
@@ -346,9 +314,9 @@ public class TelaJogo implements Screen {
      * Desenha os objetos na ordem correta
      */
     private void desenharObjetos() {
-        obstaculos.desenhar(batch);
-        personagem.desenhar(batch);
-        chao.desenhar(batch);
+        // desenha os obstáculos, porsonagem e chao
+        // IMPLEMENTAR
+
         desenharTiros();
         desenharExplosoes();
     }
@@ -375,9 +343,8 @@ public class TelaJogo implements Screen {
      * Desenha o fundo de acordo com o tamanho e posição da câmera
      */
     private void desenharFundo() {
-        float x = camera.position.x - MainGame.LARGURA_TELA / 2f;
-        float y = camera.position.y - MainGame.ALTURA_TELA / 2f;
-        batch.draw(recursos.txFundo, x, y, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
+        // desenha a imagem de fundo cobrindo a tela toda
+        // IMPLEMENTAR
     }
 
     /**
@@ -386,8 +353,11 @@ public class TelaJogo implements Screen {
      * @param delta
      */
     protected void atualizar(float delta) {
+        // para PC
         capturarTeclas();
+        // para mobile
         capturarToques();
+
         atualizarCamera();
         atualizarObjetos(delta);
 
@@ -442,11 +412,11 @@ public class TelaJogo implements Screen {
      * @param delta
      */
     private void atualizarObjetos(float delta) {
-        obstaculos.atualizar(delta, personagem.getPosicao().x + 20);
-        personagem.atualizar(delta);
-        chao.atualizar(delta);
-        atualizarTiros(delta);
-        atualizarExplosoes(delta);
+        // atualiza os obstáculos, personagem e o chao
+        // IMPLEMENTAR
+
+        //atualizarTiros(delta);
+        //atualizarExplosoes(delta);
     }
 
     /**
@@ -496,8 +466,8 @@ public class TelaJogo implements Screen {
      * Posiciona a câmera de acordo com a posição do personagem
      */
     private void atualizarCamera() {
-        camera.position.x = personagem.getPosicao().x * PIXEL_METRO + camera.viewportWidth / 5;
-        camera.update();
+        // atualiza a câmera geral para acompanhar o personagem
+        // IMPLEMENTAR
     }
 
     /**
@@ -528,7 +498,7 @@ public class TelaJogo implements Screen {
     }
 
     /**
-     * Inicia o jogo
+     * Inicia o jogo quando o ENTER é pressionado ou ocorre um toque/clique na tela
      */
     private void iniciarJogo() {
         recursos.msMenu.stop();

@@ -1,8 +1,6 @@
 package com.minicurso.libgdx.gdxgame;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.minicurso.libgdx.gdxgame.telas.TelaJogo;
@@ -39,9 +37,9 @@ public class MainGame extends Game {
      */
     @Override
     public void render() {
-        // limpa a tela
-        Gdx.gl.glClearColor(1, .25f, .25f, .25f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // limpa a tela (só necessário enquanto desenvolvimento)
+//        Gdx.gl.glClearColor(1, .25f, .25f, .25f);
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // desenha a tela atual
         super.render();
     }

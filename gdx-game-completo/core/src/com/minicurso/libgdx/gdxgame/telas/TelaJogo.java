@@ -313,14 +313,14 @@ public class TelaJogo implements Screen {
         // inicia o desenho
         batch.begin();
 
-        // configura o batch de acordo com o tamanho e posição da câmera do jogo
-        batch.setProjectionMatrix(camera.combined);
-        desenharFundo();
-        desenharObjetos();
-
         // configura o batch de acordo com tamanho e posição da câmera das pontuações
         batch.setProjectionMatrix(cameraPontuacao.combined);
+        desenharFundo();
         desenharTextos();
+
+        // configura o batch de acordo com o tamanho e posição da câmera do jogo
+        batch.setProjectionMatrix(camera.combined);
+        desenharObjetos();
 
         // finaliza o desenho
         batch.end();
@@ -375,9 +375,7 @@ public class TelaJogo implements Screen {
      * Desenha o fundo de acordo com o tamanho e posição da câmera
      */
     private void desenharFundo() {
-        float x = camera.position.x - MainGame.LARGURA_TELA / 2f;
-        float y = camera.position.y - MainGame.ALTURA_TELA / 2f;
-        batch.draw(recursos.txFundo, x, y, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
+        batch.draw(recursos.txFundo, 0, 0, MainGame.LARGURA_TELA, MainGame.ALTURA_TELA);
     }
 
     /**
@@ -386,8 +384,11 @@ public class TelaJogo implements Screen {
      * @param delta
      */
     protected void atualizar(float delta) {
+        // para PC
         capturarTeclas();
+        // para mobile
         capturarToques();
+
         atualizarCamera();
         atualizarObjetos(delta);
 
@@ -528,7 +529,7 @@ public class TelaJogo implements Screen {
     }
 
     /**
-     * Inicia o jogo
+     * Inicia o jogo quando o ENTER é pressionado ou ocorre um toque/clique na tela
      */
     private void iniciarJogo() {
         recursos.msMenu.stop();
